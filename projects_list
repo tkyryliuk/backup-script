@@ -1,3 +1,5 @@
-dev05 dev05@dev.deweb.com.ua:/home/dev05/sites/html/ 2022
-dev04 dev04@dev.deweb.com.ua:/home/dev04/sites/html/ 2022
-dtest17 dtest17@vps.deweb.com.ua:/home/dtest17/public_html/ 22
+agroscience agroscience@185.92.223.237:/var/www/agroscience.com.ua/public_html/ 22 1d
+agroscience_mysql agroscience@185.92.223.237:/var/www/agroscience.com.ua/public_html/includes/database/mysql 22 1h
+agroscience_pgsql agroscience@185.92.223.237:/var/www/agroscience.com.ua/public_html/includes/database/pgsql 22 1d
+agroscience_sqlite agroscience@185.92.223.237:/var/www/agroscience.com.ua/public_html/includes/database/sqlite 22 1w
+agroscience_filetransfer agroscience@185.92.223.237:/var/www/agroscience.com.ua/public_html/includes/filetransfer 22 1m

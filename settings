@@ -1,0 +1,7 @@
+#######################################
+##  Settings file for backup_script  ##
+#######################################
+
+
+#where the private key located on this machine
+SSH_KEY="/home/taras/.ssh/id_rsa"
