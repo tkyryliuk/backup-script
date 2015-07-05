@@ -5,3 +5,10 @@
 
 #where the private key located on this machine
 SSH_KEY="/home/taras/.ssh/id_rsa"
+
+
+#how many backups you need in each folder
+YEARLY=1
+MONTHLY=1
+WEEKLY=1
+DAILY=1

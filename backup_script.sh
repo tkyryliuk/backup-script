@@ -99,18 +99,18 @@ do
         rsync $RSYNC_OPT -e "$SSH_OPT" $SOURCE_DIR $TARGET_DIR
         #checking the result of rsync
         if [ "$?" = "0" ] ; then
-            echo "$DATE $PROJECT_NAME rsync completed normally" >> success.log
+            echo "$DATE_TIME $PROJECT_NAME rsync completed normally" >> success.log
             #write backup name into file for the next execution
             echo $BACKUP_NAME > backups/"$PROJECT_NAME"/last_backupname
             break
         else
             #if script tries less than 5 it will run again
             if [[ $TRIES -eq 5 ]] ; then
-                echo "$DATE $PROJECT_NAME rsync failure. Skipping this job" >> error.log
+                echo "$DATE_TIME $PROJECT_NAME rsync failure. Skipping this job" >> error.log
                 break
             fi
             let TRIES=TRIES+1
-            echo "$DATE $PROJECT_NAME rsync failure. Backing off and retrying..."
+            echo "$DATE_TIME $PROJECT_NAME rsync failure. Backing off and retrying..."
             sleep 60
         fi
     done
