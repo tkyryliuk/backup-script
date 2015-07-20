@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#include file with settings
-. settings
-
 #Find current path
-CURRENT_PATH=`pwd`
+CURRENT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+#include file with settings
+. "$CURRENT_PATH"/settings
 
 while
     read -a STRING_ARRAY;
@@ -27,4 +27,4 @@ do
     cd "$CURRENT_PATH"/backups/"$PROJECT_NAME"/04_Daily/
     (ls -t|head -n "$DAILY";ls)|sort|uniq -u|xargs --no-run-if-empty rm -rf
     
-done < ./projects_list
+done < "$CURRENT_PATH"/projects_list
