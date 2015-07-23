@@ -2,22 +2,30 @@
 
 #Website Backup Script
 
-#Find current path
-CURRENT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+#define backup function
+run_backup_job () {
+    if [[ -z ${1+x} || -z ${2+x} || -z ${3+x} ]]; then
+        echo "Error! Invalid paremeters received. Can't do this job.";
+        exit
+    fi
 
-#include file with settings
-. "$CURRENT_PATH"/settings
+    #Find current path
+    CURRENT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-while
-    #read from file projects_list by line
-    read -a STRING_ARRAY;
-do
-    PROJECT_NAME=${STRING_ARRAY[0]};
-    SOURCE_DIR=${STRING_ARRAY[1]};
-    SSH_PORT=${STRING_ARRAY[2]};
-    FREQUENCY=${STRING_ARRAY[3]};
-    
-    echo "Current job: $PROJECT_NAME";
+    #include file with settings
+    . "$CURRENT_PATH"/settings
+
+    #defining required variables
+    PROJECT_NAME=$1
+    SOURCE_DIR=$2
+    SSH_PORT=$3
+
+    #if $FREQUENCY not set
+    if [ -z "$4" ]; then
+        FREQUENCY="1h"
+    else
+        FREQUENCY=$4
+    fi
 
     #Date vars in ISO-8601 format:
     DATE_TIME=`date "+%Y-%m-%d_%H-%M-%S"`
@@ -25,6 +33,8 @@ do
     MONTH=`date "+%m"`
     WEEK=`date "+%W"`
     DAY=`date "+%d"`
+
+    echo "Current job: backup $PROJECT_NAME";
 
     #create project folder if it doesn't exists
     if [ ! -e "$CURRENT_PATH/backups/$PROJECT_NAME/last_backupname" ]; then
@@ -39,7 +49,7 @@ do
         mkdir "$CURRENT_PATH/backups/$PROJECT_NAME/04_Daily"
         
     fi
-    
+
     #Last backup name:
     read LAST_BACKUP < "$CURRENT_PATH/backups/$PROJECT_NAME/last_backupname"
     
@@ -114,4 +124,38 @@ do
             sleep 60
         fi
     done
-done < "$CURRENT_PATH"/projects_list
+}
+
+
+#Check is it one time job by checking if there any arguments passed to script
+if [ -n "$1" ]; then
+    #check if there are all required arguments
+    if [[ -z ${2+x} || -z ${3+x} ]]; then
+        echo "Error! Invalid paremeters received. Can't do this job.";
+        exit
+    fi
+
+    PROJECT_NAME=$1
+    SOURCE_DIR=$2
+    SSH_PORT=$3
+
+    echo '3 args set';
+    #pass all arguments to the run_backup_job() function 
+    run_backup_job $PROJECT_NAME $SOURCE_DIR $SSH_PORT
+else
+    #Find current path
+    CURRENT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+    #if there are no passed arguments than do backups of all projects from projects_list file
+    while
+        read -a STRING_ARRAY;
+    do
+        PROJECT_NAME=${STRING_ARRAY[0]};
+        SOURCE_DIR=${STRING_ARRAY[1]};
+        SSH_PORT=${STRING_ARRAY[2]};
+        FREQUENCY=${STRING_ARRAY[3]};
+
+        run_backup_job $PROJECT_NAME $SOURCE_DIR $SSH_PORT $FREQUENCY
+
+    done < "$CURRENT_PATH"/projects_list
+fi
