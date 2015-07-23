@@ -1,0 +1,14 @@
+#######################################
+##  Settings file for backup_script  ##
+#######################################
+
+
+#where the private key located on this machine
+SSH_KEY="/home/../.ssh/id_rsa"
+
+
+#how many backups you need in each folder
+YEARLY=2
+MONTHLY=6
+WEEKLY=4
+DAILY=7

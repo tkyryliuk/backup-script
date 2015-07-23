@@ -1,0 +1,5 @@
+#ignore files specific to project
+error.log
+projects_list
+settings
+success.log
