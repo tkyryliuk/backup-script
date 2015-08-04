@@ -139,7 +139,6 @@ if [ -n "$1" ]; then
     SOURCE_DIR=$2
     SSH_PORT=$3
 
-    echo '3 args set';
     #pass all arguments to the run_backup_job() function 
     run_backup_job $PROJECT_NAME $SOURCE_DIR $SSH_PORT
 else
