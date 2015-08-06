@@ -2,11 +2,11 @@
 SSH_KEY="/home/../.ssh/id_rsa"
 
 #absolute path to folder on this server
-#example: /home/../../backup_script/backups/dev04/01_Yearly/2015/2015-07-06_14-15-39/
+#example: /home/../backup_script/backups/example.com/01_Yearly/2015/2015-07-06_14-15-39/
 SOURCE_DIR=""
 
 #path to directory on remote server
-#example: username@remote_host:destination_directory
+#example: username@remote-server.com:/path/to/destination_directory
 TARGET_DIR=""
 
 #which port to connect to remote machine
