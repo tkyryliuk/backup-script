@@ -6,7 +6,7 @@
 run_backup_job () {
     if [[ -z ${1+x} || -z ${2+x} || -z ${3+x} ]]; then
         echo "Error! Invalid paremeters received. Can't do this job.";
-        exit
+        exit 1;
     fi
 
     #Find current path
@@ -117,7 +117,7 @@ run_backup_job () {
             #if script tries less than 5 it will run again
             if [[ $TRIES -eq 5 ]] ; then
                 echo "$DATE_TIME $PROJECT_NAME rsync failure. Skipping this job" >> "$CURRENT_PATH"/error.log
-                break
+                exit 1;
             fi
             let TRIES=TRIES+1
             echo "$DATE_TIME $PROJECT_NAME rsync failure. Backing off and retrying..."
@@ -132,7 +132,7 @@ if [ -n "$1" ]; then
     #check if there are all required arguments
     if [[ -z ${2+x} || -z ${3+x} ]]; then
         echo "Error! Invalid paremeters received. Can't do this job.";
-        exit
+        exit 1;
     fi
 
     PROJECT_NAME=$1
