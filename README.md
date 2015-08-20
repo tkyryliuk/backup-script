@@ -1,4 +1,5 @@
-# README #
+# Backup Script #
+####  Simple Backup tool based on power of Rsync ####
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
